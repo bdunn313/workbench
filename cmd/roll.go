@@ -22,12 +22,23 @@ var rollCmd = &cobra.Command{
 		roll 2d6+1d4+2`,
 	Run: func(cmd *cobra.Command, args []string) {
 		expression := args[0] // assuming the expression is the first argument
-		fmt.Println()
-		fmt.Println("Rolling:", expression)
-		fmt.Println()
+		plain, err := cmd.Flags().GetBool("plain")
+		if err != nil {
+			fmt.Println("Error:", err)
+			return
+		}
+		if !plain {
+			fmt.Println()
+			fmt.Println("Rolling:", expression)
+			fmt.Println()
+		}
 		result, err := RollDice(rand.New(rand.NewSource(time.Now().UnixNano())), expression)
 		if err != nil {
 			fmt.Println("Error:", err)
+			return
+		}
+		if plain {
+			fmt.Printf("%d", result.Total)
 			return
 		}
 		printRoll(result)
@@ -36,16 +47,7 @@ var rollCmd = &cobra.Command{
 
 func init() {
 	rootCmd.AddCommand(rollCmd)
-
-	// Here you will define your flags and configuration settings.
-
-	// Cobra supports Persistent Flags which will work for this command
-	// and all subcommands, e.g.:
-	// rollCmd.PersistentFlags().String("foo", "", "A help for foo")
-
-	// Cobra supports local flags which will only run when this command
-	// is called directly, e.g.:
-	// rollCmd.Flags().BoolP("toggle", "t", false, "Help message for toggle")
+	rollCmd.Flags().BoolP("plain", "p", false, "Enable plain output")
 }
 
 type RandIntn interface {
