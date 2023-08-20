@@ -5,30 +5,29 @@ name: Go
 
 on:
   push:
-    branches: [ "main" ]
+    branches: ["main"]
   pull_request:
-    branches: [ "main" ]
+    branches: ["main"]
 
 jobs:
-
   build:
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v3
+      - uses: actions/checkout@v3
 
-    - name: Set up Go
-      uses: actions/setup-go@v4
-      with:
-        go-version: '1.20'
+      - name: Set up Go
+        uses: actions/setup-go@v4
+        with:
+          go-version: "1.23"
 
-    - name: Build
-      run: go build -v ./
+      - name: Build
+        run: go build -v ./
 
-    - name: Test
-      run: go test -json > TestResults-1.20.json
+      - name: Test
+        run: go test -json > TestResults-1.23.json
 
-    - name: Upload Go test results
-      uses: actions/upload-artifact@v3
-      with:
-        name: Go-results-1.20
-        path: TestResults-1.20.json
+      - name: Upload Go test results
+        uses: actions/upload-artifact@v3
+        with:
+          name: Go-results-1.23
+          path: TestResults-1.23.json
