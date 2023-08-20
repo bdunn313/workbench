@@ -2,6 +2,12 @@
 
 Personal workbench for all the things I automate or don't want to forget. It's also a personal project to expand my Go knowledge.
 
+## Installation
+
+```sh
+$ go install gitub.com/bdunn313/workbench@latest
+```
+
 ## Usage
 
 ### Roll
