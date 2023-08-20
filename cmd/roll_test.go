@@ -20,11 +20,11 @@ func TestBasicSixSidedDie(t *testing.T) {
 	result, err := RollDice(r, input)
 
 	if err != nil {
-		t.Errorf("RollDice(%s) = %d; want %d", input, result, expected)
+		t.Errorf("RollDice(%s) = %d; want %d", input, result.Total, expected)
 	}
 
-	if result != expected {
-		t.Errorf("RollDice(%s) = %d; want %d", input, result, expected)
+	if result.Total != expected {
+		t.Errorf("RollDice(%s) = %d; want %d", input, result.Total, expected)
 	}
 }
 
@@ -73,13 +73,13 @@ func TestOutOfBoundsReturnsError(t *testing.T) {
 	expected := -1
 	result, err := RollDice(r, input)
 
-	if result != expected {
-		t.Errorf("RollDice(%s) = %d; want %d", input, result, expected)
+	if result.Total != expected {
+		t.Errorf("RollDice(%s) = %d; want %d", input, result.Total, expected)
 		return
 	}
 
 	if err == nil {
-		t.Errorf("RollDice(%s) = %d; want error", input, result)
+		t.Errorf("RollDice(%s) = %d; want error", input, result.Total)
 		return
 	}
 
@@ -96,10 +96,10 @@ func TestAddingModifiers(t *testing.T) {
 	result, err := RollDice(r, input)
 
 	if err != nil {
-		t.Errorf("RollDice(%s) = %d; want %d", input, result, expected)
+		t.Errorf("RollDice(%s) = %d; want %d", input, result.Total, expected)
 	}
 
-	if result != expected {
-		t.Errorf("RollDice(%s) = %d; want %d", input, result, expected)
+	if result.Total != expected {
+		t.Errorf("RollDice(%s) = %d; want %d", input, result.Total, expected)
 	}
 }

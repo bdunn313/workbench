@@ -30,8 +30,7 @@ var rollCmd = &cobra.Command{
 			fmt.Println("Error:", err)
 			return
 		}
-		fmt.Println("-------------------")
-		fmt.Println(result)
+		printRoll(result)
 	},
 }
 
@@ -106,10 +105,15 @@ type RollResult struct {
 	RolledDie string
 }
 
-func RollDice(r RandIntn, expression string) (int, error) {
+type TotalRollResult struct {
+	Total   int
+	Results []RollResult
+}
+
+func RollDice(r RandIntn, expression string) (TotalRollResult, error) {
 	dice, err := parseExpression(expression)
 	if err != nil {
-		return -1, err
+		return TotalRollResult{Total: -1}, err
 	}
 	var results []RollResult
 	var total int
@@ -120,18 +124,20 @@ func RollDice(r RandIntn, expression string) (int, error) {
 		max += diceMax
 		results = append(results, result)
 	}
-	printRoll(total, results)
+
 	if total >= max {
-		return -1, fmt.Errorf("out of bounds somehow! %d > %d", total, max)
+		return TotalRollResult{Total: -1}, fmt.Errorf("out of bounds somehow! %d > %d", total, max)
 	}
-	return total, nil
+	return TotalRollResult{Total: total, Results: results}, nil
 }
 
-func printRoll(total int, results []RollResult) {
-	width := int(math.Log10(float64(total))) + 1
-	for _, result := range results {
+func printRoll(result TotalRollResult) {
+	width := int(math.Log10(float64(result.Total))) + 1
+	for _, result := range result.Results {
 		fmt.Printf("%*d %8s\n", width, result.Total, result.RolledDie)
 	}
+	fmt.Println(strings.Repeat("-", width+10))
+	fmt.Printf("%*d\n", width, result.Total)
 }
 
 func generateResult(die *Die, r RandIntn) (int, int, RollResult) {
