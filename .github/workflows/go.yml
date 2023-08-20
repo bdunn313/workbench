@@ -24,7 +24,7 @@ jobs:
         run: go build -v ./
 
       - name: Test
-        run: go test -json > TestResults-1.21.0.json
+        run: go test ./cmd -v -json > TestResults-1.21.0.json
 
       - name: Upload Go test results
         uses: actions/upload-artifact@v3
