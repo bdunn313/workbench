@@ -59,24 +59,35 @@ type Die struct {
 	Modifier int
 }
 
+func parseDie(die string) (Die, error) {
+	var d Die
+	parts := strings.Split(die, "d")
+	if len(parts) != 2 {
+		return d, fmt.Errorf("invalid die expression: %s", die)
+	}
+	count, err := strconv.Atoi(parts[0])
+	if err != nil {
+		return d, fmt.Errorf("invalid die count: %s", parts[0])
+	}
+	sides, err := strconv.Atoi(parts[1])
+	if err != nil {
+		return d, fmt.Errorf("invalid die sides: %s", parts[1])
+	}
+	d.Count = count
+	d.Sides = sides
+	return d, nil
+}
+
 func parseExpression(expression string) ([]Die, error) {
 	var dice []Die
 	var modifier int
 	for _, die := range strings.Split(expression, "+") {
 		if strings.Contains(die, "d") {
-			parts := strings.Split(die, "d")
-			if len(parts) != 2 {
-				return nil, fmt.Errorf("invalid die expression: %s", die)
-			}
-			count, err := strconv.Atoi(parts[0])
+			d, err := parseDie(die)
 			if err != nil {
-				return nil, fmt.Errorf("invalid die count: %s", parts[0])
+				return nil, err
 			}
-			sides, err := strconv.Atoi(parts[1])
-			if err != nil {
-				return nil, fmt.Errorf("invalid die sides: %s", parts[1])
-			}
-			dice = append(dice, Die{Count: count, Sides: sides})
+			dice = append(dice, d)
 		} else {
 			value, err := strconv.Atoi(die)
 			if err != nil {
