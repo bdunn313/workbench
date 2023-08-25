@@ -60,6 +60,9 @@ func runScript(selectedScript string) {
 }
 
 func executeScript(script embedpkg.Script) error {
+	if script.Extension != ".mjs" && script.Extension != ".md" {
+		return fmt.Errorf("invalid file extension: %s", script.Extension)
+	}
 	// Open the embedded script file
 	scriptFile, err := embedpkg.Scripts().Open(script.Path)
 	if err != nil {
