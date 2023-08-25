@@ -21,7 +21,9 @@ THE SOFTWARE.
 */
 package main
 
-import "github.com/bdunn313/workbench/cmd"
+import (
+	"github.com/bdunn313/workbench/cmd"
+)
 
 func main() {
 	cmd.Execute()
