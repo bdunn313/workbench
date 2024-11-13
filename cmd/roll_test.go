@@ -103,3 +103,16 @@ func TestAddingModifiers(t *testing.T) {
 		t.Errorf("RollDice(%s) = %d; want %d", input, result.Total, expected)
 	}
 }
+
+func TestNegativeModifier(t *testing.T) {
+	r := &mockRand{value: 3}
+	input := "1d6-2"
+	expected := 2
+	result, err := RollDice(r, input)
+	if err != nil {
+		t.Errorf("RollDice(%s) = %d; want %d", input, result.Total, expected)
+	}
+	if result.Total != expected {
+		t.Errorf("RollDice(%s) = %d; want %d", input, result.Total, expected)
+	}
+}
