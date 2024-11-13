@@ -116,3 +116,16 @@ func TestNegativeModifier(t *testing.T) {
 		t.Errorf("RollDice(%s) = %d; want %d", input, result.Total, expected)
 	}
 }
+
+func TestMissingDieCount(t *testing.T) {
+	r := &mockRand{value: 3}
+	input := "d6"
+	expected := 4
+	result, err := RollDice(r, input)
+	if err != nil {
+		t.Errorf("RollDice(%s) = %d; want %d; error %v", input, result.Total, expected, err)
+	}
+	if result.Total != expected {
+		t.Errorf("RollDice(%s) = %d; want %d", input, result.Total, expected)
+	}
+}

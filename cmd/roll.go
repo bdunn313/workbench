@@ -90,7 +90,10 @@ func parseDie(die string) (Die, error) {
 	}
 	count, err := strconv.Atoi(parts[0])
 	if err != nil {
-		return d, fmt.Errorf("invalid die count: %s", parts[0])
+		if parts[0] != "" {
+			return d, fmt.Errorf("invalid die count: %s; error %v", parts[0], err)
+		}
+		count = 1
 	}
 	sides, err := strconv.Atoi(parts[1])
 	if err != nil {
