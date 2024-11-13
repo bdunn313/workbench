@@ -1,5 +1,5 @@
 /*
-Copyright © 2023 Brad Dunn
+Copyright © 2024 Brad Dunn <brad@braddunn.com>
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
@@ -21,9 +21,7 @@ THE SOFTWARE.
 */
 package main
 
-import (
-	"github.com/bdunn313/workbench/cmd"
-)
+import "github.com/bdunn313/workbench/cmd"
 
 func main() {
 	cmd.Execute()
