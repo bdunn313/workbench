@@ -39,7 +39,10 @@ var rollCmd = &cobra.Command{
 	Long: `Supports complex dice rolls, such as:
 		roll 2d6+1d4+2`,
 	Run: func(cmd *cobra.Command, args []string) {
-		expression := args[0] // assuming the expression is the first argument
+		expression := "1d20" // default to a d20
+		if len(args) > 0 {
+			expression = args[0]
+		}
 		plain, err := cmd.Flags().GetBool("plain")
 		if err != nil {
 			fmt.Println("Error:", err)
