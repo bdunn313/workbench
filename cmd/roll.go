@@ -25,6 +25,7 @@ import (
 	"fmt"
 	"math"
 	"math/rand"
+	"regexp"
 	"strconv"
 	"strings"
 	"time"
@@ -93,7 +94,7 @@ func parseDie(die string) (Die, error) {
 	}
 	sides, err := strconv.Atoi(parts[1])
 	if err != nil {
-		return d, fmt.Errorf("invalid die sides: %s", parts[1])
+		return d, fmt.Errorf("invalid die sides: %s, error: %v", parts[1], err)
 	}
 	d.Count = count
 	d.Sides = sides
@@ -103,7 +104,18 @@ func parseDie(die string) (Die, error) {
 func parseExpression(expression string) ([]Die, error) {
 	var dice []Die
 	var modifier int
-	for _, die := range strings.Split(expression, "+") {
+
+	// Define a regular expression to capture parts of the dice rolls and modifiers
+	regex := `([+-]?\d*d\d+|[+-]?\d+)`
+	re := regexp.MustCompile(regex)
+
+	// Extract all matches from the string
+	matches := re.FindAllString(expression, -1)
+
+	for _, die := range matches {
+		die = strings.TrimSpace(die)
+
+		// Die expression
 		if strings.Contains(die, "d") {
 			d, err := parseDie(die)
 			if err != nil {
