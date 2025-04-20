@@ -39,3 +39,24 @@ $ workbench roll 2d4+3d8+4+1d20+2 --plain | cat
 ```
 
 **Note:** Right now it does not support negative numbers for modifiers. That is tracked [here](https://github.com/bdunn313/workbench/issues/1).
+
+### Table
+
+Table is a command for randomly selecting rows from CSV files. It supports the following features:
+
+- Read from a file or stdin
+- Skip header row automatically
+- Output in either formatted or plain CSV format
+
+```sh
+# Roll on a table from a file
+$ workbench table roll path/to/table.csv
+
+# Roll on a table from stdin
+$ cat table.csv | workbench table roll -
+
+# Get plain CSV output
+$ workbench table roll path/to/table.csv --plain
+```
+
+The formatted output will show each column with its header (if present) or column number, while the plain output will be comma-separated values suitable for piping to other commands.
