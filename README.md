@@ -60,3 +60,49 @@ $ workbench table roll path/to/table.csv --plain
 ```
 
 The formatted output will show each column with its header (if present) or column number, while the plain output will be comma-separated values suitable for piping to other commands.
+
+### Prepare
+
+Prepare helps you get ready for your upcoming week by:
+
+- Pulling calendar events and tasks from your Google account
+- Asking a series of questions about your upcoming week
+- Analyzing your commitments and providing a summary
+
+```sh
+$ workbench prepare
+```
+
+Before using the prepare command, you'll need to set up Google OAuth credentials:
+
+1. Go to the [Google Cloud Console](https://console.cloud.google.com/)
+2. Create a new project or select an existing one
+3. Enable the Calendar and Tasks APIs:
+   - Go to "APIs & Services" > "Library"
+   - Search for "Google Calendar API" and enable it
+   - Search for "Google Tasks API" and enable it
+4. Create OAuth 2.0 credentials:
+   - Go to "APIs & Services" > "Credentials"
+   - Click "Create Credentials" > "OAuth client ID"
+   - Choose "Desktop app" as the application type
+   - Give it a name and click "Create"
+   - You'll get a client ID and client secret
+
+5. Configure your credentials in `~/.workbench.yaml`:
+
+```yaml
+google:
+  client_id: "your-client-id.apps.googleusercontent.com"
+  client_secret: "your-client-secret"
+  token_file: "~/.workbench/google_token.json"
+```
+
+The first time you run the command, it will:
+1. Open a browser window for you to authorize the application
+2. Ask you to paste the authorization code
+3. Store the token for future use
+
+The command will then:
+1. Show your upcoming calendar events for the next week
+2. Ask you a series of questions about your upcoming week
+3. Analyze your commitments and provide a summary
