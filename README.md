@@ -1,11 +1,11 @@
 # Workbench
 
-Personal workbench for all the things I automate or don't want to forget. It's also a personal project to expand my Go knowledge.
+Welcome to Workbench! This is my personal collection of command-line tools for automating everyday tasks and storing useful utilities I don't want to forget. It's also a personal project to expand my Go programming knowledge and skills.
 
 ## Installation
 
 ```sh
-$ go install gitub.com/bdunn313/workbench@latest
+$ go install github.com/bdunn313/workbench@latest
 ```
 
 ## Usage
@@ -88,7 +88,7 @@ Before using the prepare command, you'll need to set up Google OAuth credentials
    - Give it a name and click "Create"
    - You'll get a client ID and client secret
 
-5. Configure your credentials in `~/.workbench.yaml`:
+5. Configure your credentials in [`~/.workbench.yaml`](.workbench.example.yaml):
 
 ```yaml
 google:
