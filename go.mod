@@ -1,6 +1,6 @@
 module github.com/bdunn313/workbench
 
-go 1.23.0
+go 1.24.0
 
 require (
 	github.com/charmbracelet/bubbles v0.21.0
@@ -10,7 +10,7 @@ require (
 	github.com/mattn/go-isatty v0.0.20
 	github.com/spf13/cobra v1.10.1
 	github.com/spf13/viper v1.21.0
-	golang.org/x/oauth2 v0.30.0
+	golang.org/x/oauth2 v0.31.0
 	google.golang.org/api v0.248.0
 )
 
